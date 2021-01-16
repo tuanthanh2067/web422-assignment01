@@ -21,7 +21,7 @@ const db = new RestaurantDB(MONGODB_CONN_STRING);
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 const HTTP_PORT = process.env.PORT || 8080;
 
 db.initialize()
