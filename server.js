@@ -16,7 +16,9 @@ require("dotenv").config();
 
 const { MONGODB_CONN_STRING } = process.env;
 const RestaurantDB = require("./modules/restaurantDB.js");
-const db = new RestaurantDB(MONGODB_CONN_STRING);
+const db = new RestaurantDB(
+  "mongodb+srv://dbUser:UqdJjsYTSWR66f7F@cluster0.ddsqd.mongodb.net/sample_restaurants?retryWrites=true&w=majority"
+);
 
 const app = express();
 const HTTP_PORT = process.env.PORT || 8080;
