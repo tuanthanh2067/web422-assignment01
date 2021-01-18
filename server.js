@@ -5,7 +5,7 @@
  * (including web sites) or distributed to other students.
  *
  * Name: Tuan Thanh Tan Student ID: 102183191 Date: January 17, 2021
- * Heroku Link: _______________________________________________________________
+ * Heroku Link: https://afternoon-peak-82019.herokuapp.com/
  *
  ********************************************************************************/
 
@@ -90,11 +90,21 @@ app.put("/api/restaurants/:id", (req, res) => {
 
 app.delete("/api/restaurants/:id", (req, res) => {
   const id = req.params.id;
-  db.deleteRestaurantById(id)
+  db.getRestaurantById(id)
     .then((result) => {
-      res.status(201).json({ message: result });
+      if (result === null) {
+        res.status(404).json({ message: `${id} can not be found` });
+      } else {
+        db.deleteRestaurantById(id)
+          .then((result) => {
+            res.status(201).json({ message: result });
+          })
+          .catch((error) => {
+            res.status(404).json({ message: `Error deleting ${id}` });
+          });
+      }
     })
     .catch((error) => {
-      res.status(404).json({ message: `Error with deleting ${id}` });
+      res.status(404).json({ message: `Error getting restaurant ${id}` });
     });
 });
